@@ -1,12 +1,16 @@
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayouts';
+import Home from './pages/Home';
+
 import './App.css';
-import Search from './components/Search';
 
 function App() {
   return (
-    <>
-      <Search />
-      <div className=""></div>
-    </>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<Home />} />
+      </Route>
+    </Routes>
   );
 }
 
