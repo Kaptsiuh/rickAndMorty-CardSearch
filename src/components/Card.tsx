@@ -1,50 +1,65 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
 
-// const defaultEndpoint = 'https://rickandmortyapi.com/api/character/';
+const defaultEndpoint = 'https://rickandmortyapi.com/api/character/';
 
-// eslint-disable-next-line react-refresh/only-export-components
-// export async function getServerSideProps() {
-//   const res = await fetch(defaultEndpoint);
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
+export async function getServerSideProps() {
+  const res = await fetch(defaultEndpoint);
+  const data = await res.json();
+  return {
+    props: {
+      data,
+    },
+  };
+}
 
-const Card: React.FC = () => {
-  const [card, setCard] = React.useState<{
-    imageUrl: string;
-    title: string;
-    price: number;
-  }>();
-  const { id } = useParams();
-  const navigate = useNavigate();
+const Card: React.FC = ({ data }) => {
+  //   const [card, setCard] = React.useState<{
+  //     imageUrl: string;
+  //     title: string;
+  //     price: number;
+  //   }>();
+  //   // const { id } = useParams();
+  //   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    async function fetchCard() {
-      try {
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/character/` + id);
-        setCard(data);
-      } catch (err) {
-        alert('Error to get pizza!');
-        navigate('/');
-      }
-    }
+  //   React.useEffect(() => {
+  //     async function fetchCard() {
+  //       try {
+  //         const { data } = await axios.get(`https://rickandmortyapi.com/api/character/`);
+  //         setCard(data);
+  //       } catch (err) {
+  //         navigate('/');
+  //       }
+  //     }
 
-    fetchCard();
-  }, []);
+  //     fetchCard();
+  //   }, []);
 
-  if (!card) {
-    return <>Loading...</>;
-  }
+  //   if (!card) {
+  //     return <>Loading...</>;
+  //   }
+
+  //   console.log(card);
+
+  const { results } = data;
 
   return (
     <>
-      <div>dwdwd</div>
+      <div>
+        {results.map((result) => {
+          const { id, name, image } = result;
+
+          return (
+            <li key={id}>
+              <a href="">
+                <img src={image} alt={`${name} Thumb`} />
+                <h3>{name}</h3>
+              </a>
+            </li>
+          );
+        })}
+      </div>
     </>
   );
 };
