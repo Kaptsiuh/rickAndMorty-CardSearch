@@ -16,12 +16,12 @@ const Card: React.FC = () => {
     <>
       {rickAndMortyCards.map((person) => {
         return (
-          <li key={person.id}>
+          <div key={person.id}>
             <a href={person.url}>
               <img src={person.image} alt={`${person.name} Thumb`} />
               <h3>{person.name}</h3>
             </a>
-          </li>
+          </div>
         );
       })}
     </>
