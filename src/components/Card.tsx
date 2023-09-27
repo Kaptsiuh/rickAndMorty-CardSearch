@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import React from 'react';
 
 const src = 'https://rickandmortyapi.com/api/character/';
@@ -22,10 +22,16 @@ interface RequestOptions {
   status: string;
   type: string;
   url: string;
-} // перепроверить правильность, засунул в props конструктора и в map
+}
 
-class Card extends React.Component {
-  constructor(props: RequestOptions) {
+interface State {
+  cards: RequestOptions[];
+  loading: boolean;
+  error: AxiosError | null;
+}
+
+class Card extends React.Component<object, State> {
+  constructor(props: object) {
     super(props);
     this.state = {
       cards: [],
@@ -37,14 +43,15 @@ class Card extends React.Component {
   componentDidMount(): void {
     axios
       .get(src)
-      .then((data) => {
+      .then((data: AxiosResponse) => {
         this.setState({
-          cards: data.data.results,
+          cards: data.data.results, // покрыть ts results
           loading: false,
           error: null,
         });
+        console.log(data);
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         this.setState({
           cards: [],
           loading: false,

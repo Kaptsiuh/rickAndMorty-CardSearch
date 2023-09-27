@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Search: React.FC = () => {
+  // const [open, setOpen] = React.useState(false);
+
   return (
     <div className="w-3/5 h-20 m-auto flex justify-center bg-red-100 rounded-lg mt-5 shadow-lg">
       <input className="w-2/3 h-10 m-auto rounded-lg pl-5 text-red-500" placeholder="Search..." />
